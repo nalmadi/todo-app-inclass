@@ -1,0 +1,31 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h1>Plan-it 🌎</h1>
+        <p>Write your todo items here:</p>
+
+        <form method="post">
+            <input type="text" name="item">
+            <input type="submit" value="Add">
+        </form>
+
+        <ul>
+            {% for item in user.notes %}
+                <li>{{ item.data }}  <a href="/remove/{{ item.id }}"> remove</a></li>
+            {% endfor %}
+        </ul>
+
+
+    </body>
+
+</html>
+
+
+
