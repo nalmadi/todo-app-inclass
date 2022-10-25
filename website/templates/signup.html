@@ -1,26 +1,16 @@
 
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Signup</title>
-    </head>
+{% block content %}
+<p>Sign up to the coolest site ever (according to us):</p>
 
-    <body>
-        <h1>Plan-it 🌎</h1>
-        <p>Sign up to the coolest site ever (according to us):</p>
-
-        <form method="post">
-            <input type="email" name="email" placeholder="Enter email address">
-            <input type="password" name="password1" placeholder="Enter password">
-            <input type="password" name="password2" placeholder="Confirm password">
-            <input type="submit" value="Create Account">
-        </form>
-
-    </body>
-
-</html>
+<form method="post">
+    <input type="email" name="email" placeholder="Enter email address">
+    <input type="password" name="password1" placeholder="Enter password">
+    <input type="password" name="password2" placeholder="Confirm password">
+    <input type="submit" value="Create Account">
+</form>
+{% endblock %}
 
 
 

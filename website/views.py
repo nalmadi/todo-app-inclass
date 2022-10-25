@@ -4,6 +4,10 @@ from . import db
 from .models import Note
 from flask_login import login_required, current_user
 
+# for plotting things
+import json
+import plotly
+import plotly.express as px
 
 views = Blueprint('views', __name__)
 
@@ -22,7 +26,7 @@ def home():
         db.session.commit()
 
     #notes = list(db.session.query(Note).all())
-    return render_template("home.html", user=current_user)
+    return render_template("home.html", user=current_user, active_page='home')
 
 
 @views.route('/remove/<string:note_id>', methods=['GET'])
@@ -32,3 +36,14 @@ def remove(note_id):
     db.session.commit()
 
     return redirect(url_for('views.home'))
+
+
+@views.route('/figures', methods=['GET', 'POST'])
+@login_required
+def figures():
+
+    df = px.data.medals_wide()
+    fig = px.bar(df, x="nation", y=["gold", "silver", "bronze"], title="Medals", barmode="group")
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template("figures.html", user=current_user, graphJSON=graphJSON)

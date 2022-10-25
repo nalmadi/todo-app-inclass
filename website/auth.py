@@ -24,12 +24,16 @@ def login():
         else:
             return "User does not exist"
 
-    return render_template("login.html")
+    return render_template("login.html", user=current_user, active_page='login')
 
 
 @auth.route('/logout', methods=['GET'])
 @login_required
 def logout():
+    
+    current_user.permission = 1
+    db.session.commit()
+    
     logout_user()
     return redirect(url_for('auth.login'))
 
@@ -49,9 +53,15 @@ def signup():
             if user:
                 return "User already exists"
             else: 
-                new_user = User(email=email, password=password1)
+
+                if email == "gru@minions.org":
+                    permission = 0
+                else:
+                    permission = 1
+
+                new_user = User(email=email, password=password1, permission=permission)
                 db.session.add(new_user)
                 db.session.commit()
                 return redirect(url_for('views.home'))
 
-    return render_template("signup.html")
+    return render_template("signup.html", user=current_user, active_page='signup')
